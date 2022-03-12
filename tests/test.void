@@ -1,0 +1,9 @@
+print("Test1");
+int a = 1337;
+char b = "test2";
+print(int: a);
+print(char: b);
+execute("pwd");
+input();
+char c = input();
+print(char: c);
