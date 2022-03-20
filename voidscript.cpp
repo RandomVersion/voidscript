@@ -39,6 +39,12 @@ void execute(std::string input) {
     system(comamnd);
 }
 
+void exec_char(std::string input) {
+  const char *command = vars_char[input].c_str();
+  // const char *comamnd = input.c_str();
+  system(command);
+}
+
 void create_variable_int(std::string variable_name, int variable_value) {
   vars_int[variable_name] = variable_value;
 }
@@ -92,11 +98,15 @@ void parse(std::string where) {
   function_list save_input_to_char;
   save_input_to_char.name = "save_input";
   save_input_to_char.regex = "^char (\\w*\\S) = input\\(\\);$";
+
+  function_list execute_char;
+  execute_char.name = "execute_char";
+  execute_char.regex = "^execute\\(char: (\\w+.*)\\);$";
   
   std::string line;
   std::ifstream file;
   file.open(where);
-  std::list<std::string> list1 = {print_class.name, execute_class.name, variable_create_int.name, variable_create_char.name, variable_print_int.name, variable_print_char.name, get_input.name, save_input_to_char.name};
+  std::list<std::string> list1 = {print_class.name, execute_class.name, variable_create_int.name, variable_create_char.name, variable_print_int.name, variable_print_char.name, get_input.name, save_input_to_char.name, execute_char.name};
 
   if (!file.is_open()) {
     perror("Error open");
@@ -124,6 +134,8 @@ void parse(std::string where) {
               os << variable_create_char.regex;
             } else if (i == save_input_to_char.name) {
               os << save_input_to_char.regex;
+            } else if (i == execute_char.name) {
+              os << execute_char.regex;
             }
 
             std::string rgx = os.str();
@@ -155,6 +167,9 @@ void parse(std::string where) {
               } else if (i == save_input_to_char.name) {
                 std::string variable_name = match[1];
                 save_input(variable_name);
+              } else if (i == execute_char.name) {
+                std::string variable_name = match[1];
+                exec_char(variable_name);
               }
             }
         }

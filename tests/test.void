@@ -7,3 +7,4 @@ execute("pwd");
 input();
 char c = input();
 print(char: c);
+execute(char: c);
