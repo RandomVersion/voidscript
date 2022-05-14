@@ -1,2 +1,2 @@
 # voidscript
-The voidscript interpreter by 0x99ff/RandomVersion
+The voidscript interpreter by RandomVersion
